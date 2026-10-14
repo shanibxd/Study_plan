@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>5th Semester Exam Study Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f5f8;--surface:#fff;--ink:#14213d;--muted:#5b6578;--line:#dde2ea;--accent:#14213d;--onaccent:#fff;
+--java:#e76f51;--dm:#2a9d8f;--fs:#4361ee;--ml:#9b5de5;--ke:#e9a100;--dg:#d6336c;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1420;--surface:#171f2e;--ink:#eaf0fb;--muted:#9aa6bd;--line:#26314a;--accent:#eaf0fb;--onaccent:#0e1420;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1420;--surface:#171f2e;--ink:#eaf0fb;--muted:#9aa6bd;--line:#26314a;--accent:#eaf0fb;--onaccent:#0e1420;color-scheme:dark}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "IBM Plex Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;margin:0;line-height:1.1}
+.wrap{max-width:980px;margin:0 auto;padding:20px 16px 64px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.top b{font-family:"Bricolage Grotesque",sans-serif;font-size:18px}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:7px 12px}
+button:focus-visible,input:focus-visible{outline:3px solid var(--fs);outline-offset:2px}
+.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin:20px 0}
+@media(max-width:720px){.hero{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.next{background:var(--accent);color:var(--onaccent);border:0}
+.next small{opacity:.75;font-size:14px}
+.next h1{font-size:clamp(30px,6vw,46px);margin:8px 0 6px}
+.next .when{opacity:.85}
+.big{font:800 clamp(40px,8vw,64px)/1 "Bricolage Grotesque",sans-serif}
+.bar{height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ink);width:0;transition:width .35s}
+.prog .big{margin:6px 0 12px}
+.prog p{margin:10px 0 0;color:var(--muted);font-size:14px}
+h2{font-size:24px;margin:34px 0 14px}
+.exams{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.ex{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:12px;padding:14px 16px}
+.ex.past{opacity:.55}
+.ex h3{font-size:18px}
+.ex p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.ex .d{font-weight:600;color:var(--ink);margin-bottom:6px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--bg);border:1px solid var(--line);color:var(--muted)}
+.courses{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.cc{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px}
+.cc b{display:flex;align-items:center;gap:8px;font-size:15px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--c);flex:none}
+.cc .bar{margin:8px 0 4px;height:6px}.cc .bar i{background:var(--c)}
+.cc span{font-size:13px;color:var(--muted)}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--onaccent);border-color:var(--accent)}
+.tools label{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--muted);margin-left:auto}
+.tl{display:grid;gap:10px}
+.day{display:grid;grid-template-columns:76px 1fr;gap:14px;align-items:start}
+.date{text-align:center;padding-top:10px}
+.date b{display:block;font:800 28px/1 "Bricolage Grotesque",sans-serif}
+.date span{font-size:13px;color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px 14px}
+.day.today .card{border-color:var(--ink);box-shadow:0 0 0 2px var(--ink)}
+.day.today .date b:after{content:"Today";display:block;font:600 11px "IBM Plex Sans";margin-top:4px;color:var(--onaccent);background:var(--accent);border-radius:99px;padding:1px 0}
+.day.done .card{background:transparent}
+.task{display:flex;gap:12px;align-items:center;padding:10px 0;cursor:pointer}
+.task+.task{border-top:1px solid var(--line)}
+.task input{appearance:none;width:24px;height:24px;border:2px solid var(--c);border-radius:7px;flex:none;cursor:pointer;display:grid;place-content:center;margin:0}
+.task input:checked{background:var(--c)}
+.task input:checked:after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.task input:checked~.txt{text-decoration:line-through;color:var(--muted)}
+.txt{flex:1}
+.txt small{display:block;color:var(--muted);font-size:13px}
+.empty{padding:24px;text-align:center;color:var(--muted)}
+footer{margin-top:40px;color:var(--muted);font-size:13px;text-align:center}
+@media(max-width:480px){.day{grid-template-columns:54px 1fr;gap:10px}.date b{font-size:22px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><b>Fifth Semester · Study Planner</b><button id="theme" aria-label="Toggle dark mode">Dark mode</button></div>
+
+  <section class="hero">
+    <div class="panel next" id="next"></div>
+    <div class="panel prog">
+      <small style="color:var(--muted)">Overall progress</small>
+      <div class="big" id="pct">0%</div>
+      <div class="bar"><i id="bar"></i></div>
+      <p id="count"></p>
+    </div>
+  </section>
+
+  <h2>Exam timetable</h2>
+  <div class="exams" id="exams"></div>
+
+  <h2>Progress by course</h2>
+  <div class="courses" id="courses"></div>
+
+  <h2>Daily plan</h2>
+  <div class="tools" id="tools"></div>
+  <div class="tl" id="tl"></div>
+
+  <footer>Your ticks are saved in this browser. <button id="reset" style="margin-left:6px">Reset all ticks</button></footer>
+</div>
+
+<script>
+const C={java:['Java','--java'],dm:['Data Mining','--dm'],fs:['Full Stack','--fs'],ml:['Machine Learning','--ml'],ke:['Knowledge Eng.','--ke'],dg:['Digital Marketing','--dg']};
+const EXAMS=[
+['2026-10-26','dm','Data Mining','CSC5CJ301','Major','10:00 AM – 12:00 PM'],
+['2026-10-28','java','Object Oriented Programming (Java)','CSC5CJ302','Major','10:00 AM – 12:00 PM'],
+['2026-10-30','fs','Full Stack Web Development','CSC5CJ303','Major','10:00 AM – 12:00 PM'],
+['2026-11-05','ml','Machine Learning Algorithms','CSC5EJ303(2)','Elective','10:00 AM – 12:00 PM'],
+['2026-11-10','ke','Knowledge Engineering','CSC5EJ304(2)','Elective','10:00 AM – 12:00 PM'],
+['2026-11-12','dg','Introduction to Digital Marketing','CSC5FS112','SEC','10:00 AM – 11:30 AM']];
+const notes3=d=>[['java','Prepare Java notes'],['dm','Prepare Data Mining notes'],['fs','Prepare Full Stack notes']].map((x,i)=>({id:d+'n'+i,k:x[0],t:x[1],kind:'Notes'}));
+const st=(d,k,t)=>[{id:d+'s',k,t,kind:'Study'}];
+const PLAN={
+'2026-10-15':notes3('1015'),'2026-10-16':notes3('1016'),
+'2026-10-17':st('1017','java','Java study'),'2026-10-18':st('1018','java','Java study'),'2026-10-19':st('1019','java','Java study'),
+'2026-10-20':st('1020','fs','Full Stack study'),'2026-10-21':st('1021','fs','Full Stack study'),
+'2026-10-22':st('1022','dm','Data Mining study'),'2026-10-23':st('1023','dm','Data Mining study'),'2026-10-24':st('1024','dm','Data Mining study'),'2026-10-25':st('1025','dm','Data Mining study'),
+'2026-10-31':[{id:'1031a',k:'ml',t:'Prepare Machine Learning notes',kind:'Notes'},{id:'1031b',k:'dg',t:'Prepare Digital Marketing notes',kind:'Notes'}],
+'2026-11-01':[{id:'1101a',k:'ml',t:'Prepare Machine Learning notes',kind:'Notes'},{id:'1101b',k:'dg',t:'Prepare Digital Marketing notes',kind:'Notes'}],
+'2026-11-02':st('1102','ml','Machine Learning study'),'2026-11-03':st('1103','ml','Machine Learning study'),'2026-11-04':st('1104','ml','Machine Learning study'),
+'2026-11-06':[{id:'1106a',k:'ke',t:'Prepare Knowledge Engineering notes',kind:'Notes'},{id:'1106b',k:'ke',t:'Knowledge Engineering study',kind:'Study'}],
+'2026-11-07':[{id:'1107a',k:'ke',t:'Prepare Knowledge Engineering notes',kind:'Notes'},{id:'1107b',k:'ke',t:'Knowledge Engineering study',kind:'Study'}],
+'2026-11-08':[{id:'1108a',k:'ke',t:'Prepare Knowledge Engineering notes',kind:'Notes'},{id:'1108b',k:'ke',t:'Knowledge Engineering study',kind:'Study'}],
+'2026-11-09':[{id:'1109a',k:'ke',t:'Prepare Knowledge Engineering notes',kind:'Notes'},{id:'1109b',k:'ke',t:'Knowledge Engineering study',kind:'Study'}],
+'2026-11-11':st('1111','dg','Digital Marketing study')};
+
+const $=s=>document.querySelector(s);
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const dt=s=>new Date(s+'T00:00:00');
+const fmt=(s,o)=>dt(s).toLocaleDateString('en-GB',o);
+let done={};try{done=JSON.parse(localStorage.getItem('sp26')||'{}')}catch(e){}
+const save=()=>{try{localStorage.setItem('sp26',JSON.stringify(done))}catch(e){}};
+let filter='all',hideDone=false;
+const all=Object.values(PLAN).flat();
+
+function col(k){return 'style="--c:var('+C[k][1]+')"'}
+
+function renderNext(){
+  const now=new Date(),today=iso(now);
+  const e=EXAMS.find(x=>x[0]>=today);
+  const el=$('#next');
+  if(!e){el.innerHTML='<small>All exams</small><h1>You made it.</h1><div class="when">Every exam on the timetable is behind you.</div>';return}
+  const n=Math.round((dt(e[0])-dt(today))/864e5);
+  el.innerHTML='<small>Next exam</small><h1>'+e[2]+'</h1><div class="when">'+fmt(e[0],{weekday:'long',day:'numeric',month:'long'})+', '+e[5]+'</div><div class="big" style="margin-top:14px">'+(n===0?'Today':n+(n===1?' day':' days'))+(n?'<span style="font-size:18px;font-weight:500;opacity:.8"> to go</span>':'')+'</div>';
+}
+
+function renderExams(){
+  const today=iso(new Date());
+  $('#exams').innerHTML=EXAMS.map(e=>'<div class="ex'+(e[0]<today?' past':'')+'" '+col(e[1])+'><div class="d">'+fmt(e[0],{weekday:'short',day:'numeric',month:'short'})+' · '+e[5]+'</div><h3>'+e[2]+'</h3><p>'+e[3]+' <span class="tag">'+e[4]+'</span></p></div>').join('');
+}
+
+function renderStats(){
+  const tot=all.length,dn=all.filter(t=>done[t.id]).length,p=tot?Math.round(dn/tot*100):0;
+  $('#pct').textContent=p+'%';$('#bar').style.width=p+'%';
+  $('#count').textContent=dn+' of '+tot+' tasks done';
+  $('#courses').innerHTML=Object.keys(C).map(k=>{
+    const ts=all.filter(t=>t.k===k),d=ts.filter(t=>done[t.id]).length;
+    return '<div class="cc" '+col(k)+'><b><i class="dot"></i>'+C[k][0]+'</b><div class="bar"><i style="width:'+(d/ts.length*100)+'%"></i></div><span>'+d+' / '+ts.length+' done</span></div>'}).join('');
+}
+
+function renderTools(){
+  const chips=[['all','All']].concat(Object.keys(C).map(k=>[k,C[k][0]]));
+  $('#tools').innerHTML=chips.map(c=>'<button class="chip" data-k="'+c[0]+'" aria-pressed="'+(filter===c[0])+'">'+c[1]+'</button>').join('')+'<label><input type="checkbox" id="hd"'+(hideDone?' checked':'')+'> Hide completed</label>';
+}
+
+function renderTL(){
+  const today=iso(new Date());
+  const dates=[...new Set(Object.keys(PLAN).concat(EXAMS.map(e=>e[0])))].sort();
+  let out='';
+  dates.forEach(d=>{
+    const tasks=(PLAN[d]||[]).filter(t=>(filter==='all'||t.k===filter)&&!(hideDone&&done[t.id]));
+    const ex=EXAMS.find(e=>e[0]===d&&(filter==='all'||e[1]===filter));
+    if(!tasks.length&&!ex)return;
+    const full=(PLAN[d]||[]).length&&(PLAN[d]||[]).every(t=>done[t.id]);
+    let body='';
+    if(ex)body+='<div class="ex" '+col(ex[1])+' style="margin-bottom:'+(tasks.length?'6px':'0')+'"><div class="d">Exam · '+ex[5]+'</div><h3>'+ex[2]+'</h3><p>'+ex[3]+' <span class="tag">'+ex[4]+'</span></p></div>';
+    if(tasks.length)body+='<div class="card">'+tasks.map(t=>'<label class="task" '+col(t.k)+'><input type="checkbox" data-id="'+t.id+'"'+(done[t.id]?' checked':'')+'><span class="txt">'+t.t+'<small>'+t.kind+'</small></span></label>').join('')+'</div>';
+    out+='<div class="day'+(d===today?' today':'')+(full?' done':'')+'" id="d'+d+'"><div class="date"><b>'+dt(d).getDate()+'</b><span>'+fmt(d,{month:'short',weekday:'short'})+'</span></div><div>'+body+'</div></div>';
+  });
+  $('#tl').innerHTML=out||'<div class="empty">Nothing to show. Pick another course or turn off "Hide completed".</div>';
+}
+
+function renderAll(){renderNext();renderExams();renderStats();renderTools();renderTL()}
+
+document.addEventListener('change',e=>{
+  if(e.target.dataset.id){done[e.target.dataset.id]=e.target.checked;save();renderStats();
+    const s=window.scrollY;renderTL();window.scrollTo(0,s)}
+  if(e.target.id==='hd'){hideDone=e.target.checked;renderTL()}
+});
+document.addEventListener('click',e=>{
+  const c=e.target.closest('.chip');if(c){filter=c.dataset.k;renderTools();renderTL()}
+});
+$('#reset').onclick=()=>{if(confirm('Clear all ticks?')){done={};save();renderAll()}};
+$('#theme').onclick=()=>{
+  const r=document.documentElement,dark=getComputedStyle(r).colorScheme==='dark';
+  r.dataset.theme=dark?'light':'dark';$('#theme').textContent=dark?'Dark mode':'Light mode'};
+renderAll();
+const td=document.getElementById('d'+iso(new Date()));if(td)setTimeout(()=>td.scrollIntoView({block:'center'}),150);
+</script>
+</body>
+</html>
